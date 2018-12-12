@@ -4,11 +4,12 @@ var model = require('./model/CoinSchemaModel');
 var priceModel = require('./model/PriceSchemaModel');
 
 var coin_base_url = "https://pro-api.coinmarketcap.com/";
-var endPoint_list_last = "v1/cryptocurrency/listings/latest?limit=100";
-var endPoint_coin_data = "v1/cryptocurrency/quotes/latest"
+var endPoint_list_last = "v1/cryptocurrency/listings/latest?limit=30";
+var endPoint_coin_data = "v1/cryptocurrency/quotes/latest";
+var endPoint_coin_metadata = "v1/cryptocurrency/info";
 
 module.exports = {
-    getCoinList: async function(callback) {
+    getCoinList: async function() {
         var options = {
             method: 'GET',
             uri: coin_base_url + endPoint_list_last,
@@ -18,34 +19,34 @@ module.exports = {
             json: true
         };
 
-        var res = await rp(options).then(function(body) {
+        return await rp(options).then(function(body) {
             //console.log(util.inspect(body, false, null));
             var dataString = JSON.stringify(body);
             var data = JSON.parse(dataString);
+            var tokenList = [];
             if (data.data.length > 0) {
 
                 for (var i = 0; i < data.data.length; i++) {
-                    var tokenList = [];
+
                     var basicTokenInfo = {
                         token_is_active: true,
                         token_rank: data.data[i].cmc_rank,
-                        token_img_url: "",
+                        token_img_url: "https://s2.coinmarketcap.com/static/img/coins/64x64/" + data.data[i].id + ".png",
                         token_name: data.data[i].name,
                         token_symbol: data.data[i].symbol
                     }
                     tokenList.push(basicTokenInfo);
 
-                    model.saveTokens(tokenList);
+                    //model.saveTokens(tokenList);
                 }
             }
 
-            return true;
+            return tokenList;
         }).catch(function(err) {
             console.log('err = ' + err);
-            return false;
+            return null;
         });
 
-        callback(res);
     },
 
     getCoinInfo: async function(symbol) {

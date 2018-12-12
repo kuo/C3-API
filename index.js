@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var routes = require('./router');
 var util = require('util');
 var schedule = require('./schedule');
+var coin = require('./model/CoinSchemaModel');
 
 app.use(express.static('public'));
 app.use(bodyParser.raw());
@@ -16,5 +17,4 @@ schedule.crawler();
 var server = app.listen(process.env.PORT || 8080, function() {
     var port = server.address().port;
     console.log("App now running on port: ", port);
-
 });

@@ -12,9 +12,7 @@ module.exports = {
             <form id="form" method="post" action="/public/submitActions/importAll">
                 <br><input type="submit" value="匯入">
             </form>
-            <hr>
-        
-        
+            <hr>        
         </body>
         
         </html>`;
