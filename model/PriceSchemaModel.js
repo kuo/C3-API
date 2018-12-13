@@ -8,6 +8,7 @@ module.exports = {
             token_name: obj.token_name,
             token_symbol: obj.token_symbol,
             token_price_usd: obj.token_price_usd,
+            token_percent_change_24h: obj.token_percent_change_24h,
             date: obj.date
         })
 

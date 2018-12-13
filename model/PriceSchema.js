@@ -5,6 +5,8 @@ var PriceSchema = new mongoose.Schema({
     token_name: { type: String },
     token_symbol: { type: String },
     token_price_usd: { type: Number },
+    token_percent_change_1h: { type: Number },
+    token_percent_change_24h: { type: Number },
     date: { type: String }
 });
 
