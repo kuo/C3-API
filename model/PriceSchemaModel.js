@@ -16,6 +16,6 @@ module.exports = {
     },
 
     getHistoricalInfo: async function(symbol, days) {
-        return await price.find({ token_symbol: symbol }).limit(parseInt(days)).exec();
+        return await price.find({ token_symbol: symbol }).sort({ date: -1 }).limit(parseInt(days)).exec();
     }
 }
